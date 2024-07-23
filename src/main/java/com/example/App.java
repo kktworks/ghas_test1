@@ -62,12 +62,6 @@ public class App {
      * </pre>
      */
     public void buildingACommandLineWithStringConcatenation(String args) throws IOException {
-        {
-            String latlonCoords = args;
-            Runtime rt = Runtime.getRuntime();
-            Process exec = rt.exec("cmd.exe /C latlon2utm.exe " + latlonCoords);
-        }
-
         // GOOD: use an array of arguments instead of executing a string
         {
             String latlonCoords = args;
@@ -102,7 +96,7 @@ public class App {
      */
 
     public void inefficientRegularExpression() {
-        Pattern pattern = Pattern.compile("^_(__|.)+_$");
+        Pattern pattern = Pattern.compile("^_(__|[^_])+_$");
     }
 
     /**
@@ -158,14 +152,14 @@ public class App {
 
         char[] buf = new char[BIGNUM];
 
-        short bytesReceived = 0;
+        int bytesReceived = 0;
 
         while (bytesReceived < MAXGET) {
             bytesReceived += getFromInput(buf, bytesReceived);
         }
     }
 
-    public static int getFromInput(char[] buf, short pos) {
+    public static int getFromInput(char[] buf, int pos) {
         // write to buf
         // ...
         return 1;

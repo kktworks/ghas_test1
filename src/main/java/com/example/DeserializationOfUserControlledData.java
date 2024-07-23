@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -31,8 +32,8 @@ public class DeserializationOfUserControlledData {
      * </pre>
      */
     public DeserializationOfUserControlledData deserialize(Socket sock) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream in = new ObjectInputStream(sock.getInputStream())) {
-            return (DeserializationOfUserControlledData) in.readObject(); // unsafe
+        try (DataInputStream in = new DataInputStream(sock.getInputStream())) {
+            return new DeserializationOfUserControlledData(in.readInt());
         }
     }
 }
