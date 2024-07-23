@@ -31,15 +31,15 @@ public class App {
      */
     public void writeZipEntry(ZipEntry entry, File destinationDir) throws Exception {
         // BAD
-        File file = new File(destinationDir, entry.getName());
-        FileOutputStream fos = new FileOutputStream(file); // BAD
+        // File file = new File(destinationDir, entry.getName());
+        // FileOutputStream fos = new FileOutputStream(file); // BAD
 
         // workaround
-        //File file = new File(destinationDir, entry.getName());
+        File file = new File(destinationDir, entry.getName());
         // insert check
-        //if (!file.toPath().normalize().startsWith(destinationDir.toPath()))
-        //    throw new Exception("Bad zip entry");
-        //FileOutputStream fos = new FileOutputStream(file);
+        if (!file.toPath().normalize().startsWith(destinationDir.toPath()))
+           throw new Exception("Bad zip entry");
+        FileOutputStream fos = new FileOutputStream(file);
     }
 
     /**
