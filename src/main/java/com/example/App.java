@@ -6,9 +6,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 public class App {
     public static void main(String[] args) throws Exception {
+        Logger logger = LogManager.getLogger();
+        // ログメッセージの出力
+        logger.info("info message.");
+        logger.trace("trace message.");
+        logger.debug("debug message.");
+        logger.warn("warning message.");
+        logger.error("error message.");
 
+        // 変数をログに埋め込む例
+        String greeting = "hello";
+        String world = "world";
+        logger.error("'{}', '{}'", greeting, world);
     }
 
     /**
