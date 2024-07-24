@@ -6,9 +6,31 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
-public class App {
-    public static void main(String[] args) throws Exception {
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
+
+public class App {
+    private static final Logger logger = Logger.getLogger(App.class);
+
+    public static void main(String[] args) throws Exception {
+        String userInput = args[0];
+
+        // 脆弱性のあるJacksonバージョンを使ったデシリアライゼーション
+        ObjectMapper mapper = new ObjectMapper();
+        User user = mapper.readValue(userInput, User.class);
+        logger.info("User logged in: " + user.getUsername());
+
+    }
+
+    class User {
+        private String username;
+
+        // getters and setters
+        public String getUsername() {
+            return username;
+
+        }
     }
 
     /**
@@ -38,7 +60,7 @@ public class App {
         File file = new File(destinationDir, entry.getName());
         // insert check
         if (!file.toPath().normalize().startsWith(destinationDir.toPath()))
-           throw new Exception("Bad zip entry");
+            throw new Exception("Bad zip entry");
         FileOutputStream fos = new FileOutputStream(file);
     }
 

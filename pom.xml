@@ -7,10 +7,7 @@
   <groupId>com.example</groupId>
   <artifactId>ghas_test1</artifactId>
   <version>1.0-SNAPSHOT</version>
-
   <name>ghas_test1</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,17 +22,34 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+    <!-- Vulnerable dependency -->
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+    <!-- 古いバージョンのJacksonライブラリを使用 (CVE-2020-36518等の脆弱性あり) -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.9.10.7</version>
+    </dependency>
+    <!-- 古いバージョンのLog4jライブラリを使用 (CVE-2021-44228等の脆弱性あり) -->  
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.17</version>
+     </dependency>
+    <!-- 古いバージョンのLog4jcoreライブラリを使用 (CVE-2021-45105等の脆弱性あり) -->  
     <dependency>
         <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-api</artifactId>
+        <artifactId>log4j-core</artifactId>
         <version>2.0.2</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-    <dependency>
-       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>2.0.2</version>
     </dependency>
   </dependencies>
 
