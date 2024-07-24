@@ -4,39 +4,31 @@ import java.io.File;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
 public class App {
+    private static final Logger logger = Logger.getLogger(App.class);
     public static void main(String[] args) throws Exception {
-        Logger logger = LogManager.getLogger();
-        // ログメッセージの出力
-        logger.info("info message.");
-        logger.trace("trace message.");
-        logger.debug("debug message.");
-        logger.warn("warning message.");
-        logger.error("error message.");
+        String userInput = args[0];
 
-        // 変数をログに埋め込む例
-        String greeting = "hello";
-        String world = "world";
-        logger.error("'{}', '{}'", greeting, world);
+        // 脆弱性のあるJacksonバージョンを使ったデシリアライゼーション
+        ObjectMapper mapper = new ObjectMapper();
+        User user = mapper.readValue(userInput, User.class);
+        logger.info("User logged in: " + user.getUsername());
 
-                List<Integer> list1 = Arrays.asList(1, 2, 3);
-        List<Integer> list2 = Arrays.asList(3, 4, 5);
-
-        // Using a method from the vulnerable commons-collections library
-        List<Integer> intersection = (List<Integer>) CollectionUtils.intersection(list1, list2);
-
-        System.out.println("Intersection of list1 and list2: " + intersection);
     
     }
-
+    class User {
+        private String username;
+        // getters and setters
+        public String getUsername(){
+            return username;
+        
+        }
+    }
     /**
      * Arbitrary file access during archive extraction (”Zip Slip”)
      * 
