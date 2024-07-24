@@ -4,9 +4,12 @@ import java.io.File;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 public class App {
@@ -23,6 +26,15 @@ public class App {
         String greeting = "hello";
         String world = "world";
         logger.error("'{}', '{}'", greeting, world);
+
+                List<Integer> list1 = Arrays.asList(1, 2, 3);
+        List<Integer> list2 = Arrays.asList(3, 4, 5);
+
+        // Using a method from the vulnerable commons-collections library
+        List<Integer> intersection = (List<Integer>) CollectionUtils.intersection(list1, list2);
+
+        System.out.println("Intersection of list1 and list2: " + intersection);
+    
     }
 
     /**
